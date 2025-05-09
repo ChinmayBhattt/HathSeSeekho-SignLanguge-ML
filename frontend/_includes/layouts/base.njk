@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css" ></link>
+    <title>HaathSeSeekho - Learn ASL practically.</title>
+    <link rel="icon" href="/assets/logo/signlangugeImage.png" />
+    <meta name="description" content="HaathSeSeekho is a platform where users can practically learn American Sign Language using machine learning, games and access videos for over 20,000+ ASL phrases."/>
+    <link rel="canonical" href="https://gestureacademy.webdrip.in/"/>
+    <meta property="og:title" content="HaathSeSeekho: Learn ASL practically"/>
+    <meta property="og:description" content="HaathSeSeekho is a platform where users can practically learn American Sign Language using machine learning, games and access videos for over 20,000+ ASL phrases."/>
+    {# <meta property="og:image" content="/cryptocademy-logo-sideways-light.png"/> #}
+    {# <meta property="og:image:width" content="2727"/> #}
+    {# <meta property="og:image:height" content="1952"/> #}
+    <meta property="og:site_name" content="HaathSeSeekho"/>
+    <meta property="og:type" content="ASL,Education,Courses,Learning,Machine Learning, ML, AI, Deaf Community,deaf, sign language"/>
+    <meta name="language" content="EN"/>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="author" content="Narottam Sahu, Avirat Sudam, Aman Shrivastava, Prathamesh Raut"/>
+    {# analytics - privacy and GDPR Compliant #}
+    <script async defer data-website-id="b315f6d5-10e5-4c26-a781-d3113658dae7" src="https://analytics.webdrip.in/umami.js"></script>
+    <script src="/js/auth.js"></script>
+    
+    <script>
+        // Simple authentication check
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('/react-login/');
+            
+            // If not logged in and not on login page, redirect to login
+            if (!isLoggedIn && !isLoginPage) {
+                window.location.href = '/react-login/index.html';
+            }
+            
+            // If logged in and on login page, redirect to home
+            if (isLoggedIn && isLoginPage) {
+                window.location.href = '/';
+            }
+            
+            // Show content only if logged in or on login page
+            const contentElement = document.getElementById('content-container');
+            if (contentElement) {
+                contentElement.style.display = (isLoggedIn || isLoginPage) ? 'block' : 'none';
+            }
+        });
+    </script>
+</head>
+<body class="bg-[#ECF3F5]" >
+    <div id="content-container" style="display: none;">
+        {{content | safe}}
+    </div>
+</body>
+<script src="{{ "/js/flowbite.js" | url }}" defer></script>
+{# <script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+</script> #}
+</html>

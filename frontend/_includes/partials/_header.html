@@ -1,0 +1,265 @@
+<!-- navbar -->
+<nav class="border-gray-200 bg-white px-2 py-4 dark:border-gray-700 dark:bg-gray-900">
+  <div class="container mx-auto flex flex-wrap items-center justify-between">
+    <a href="/" class="flex items-center">
+      <img src="/assets/logo/signlangugeImage.png" class="mr-4 h-12 w-12 sm:h-16 sm:w-16 object-contain" alt="HaathSeSeekho" />
+      <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+        >HaathSeSeekho</span
+      >
+    </a>
+    <button
+      type="button"
+      data-drawer-target="drawer-navigation"
+      data-drawer-show="drawer-navigation"
+      aria-controls="drawer-navigation"
+      type="button"
+      class="ml-3 inline-flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-500 md:hidden"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="h-6 w-6"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+      <ul
+        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium md:dark:bg-gray-900 nav-links"
+      >
+        <li>
+          <a
+            href="/"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link active"
+            aria-current="page"
+            >App</a
+          >
+        </li>
+        <li>
+          <a
+            href="/app/phrases/index.html"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >Dictionary</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://dev.to/narottam04/signlanguage-learn-asl-practically-mongodb-atlas-hackathon-2022-submission-2cl7"
+            target="_blank"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >Features</a
+          >
+        </li>
+        <!-- <li>
+          <a
+            href="#"
+            class="block py-2 pr-4 pl-3 text-xl text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            >Help</a
+          >
+        </li> -->
+        <li>
+          <a
+            href="https://www.buymeacoffee.com/narottam"
+            target="_blank"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >Support</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://github.com/Narottam04/SignLanguage"
+            target="_blank"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >Contribute</a
+          >
+        </li>
+        <li>
+          <button
+            id="logout-btn"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-400"
+            >Logout</button
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  :root {
+    --primary-color: #6366f1;
+    --dark-color: #333;
+    --transition: all 0.3s ease;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    position: relative;
+    transition: var(--transition);
+  }
+  
+  .nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+    background: transparent !important;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition);
+  }
+  
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-link::after {
+      bottom: 0;
+    }
+  }
+</style>
+
+<!-- drawer component -->
+<div
+  id="drawer-navigation"
+  class="fixed z-40 h-screen w-80 overflow-y-auto bg-white p-4 dark:bg-gray-800"
+  tabindex="-1"
+  aria-labelledby="drawer-navigation-label"
+>
+  <div class="flex items-center mb-4">
+    <img src="/assets/logo/signlangugeImage.png" class="mr-2 h-10 w-10 object-contain" alt="HaathSeSeekho" />
+    <h5
+      id="drawer-navigation-label"
+      class="text-base font-semibold text-gray-500 dark:text-gray-400"
+    >
+      HaathSeSeekho
+    </h5>
+  </div>
+  <button
+    type="button"
+    data-drawer-dismiss="drawer-navigation"
+    aria-controls="drawer-navigation"
+    class="absolute top-2.5 right-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+  >
+    <svg
+      aria-hidden="true"
+      class="h-5 w-5"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+  <div class="overflow-y-auto py-4">
+    <ul class="space-y-2">
+      <li>
+        <a
+          href="/"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Home</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/app/phrases/index.html"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Dictionary</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Features</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.buymeacoffee.com/narottam"
+          target="_blank"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Support</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/Narottam04/SignLanguage"
+          target="_blank"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Contribute</span>
+        </a>
+      </li>
+      <li>
+        <button
+          id="drawer-logout-btn"
+          class="flex w-full items-center rounded-lg p-2 text-base font-normal text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Logout</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Logout functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logout-btn');
+    const drawerLogoutBtn = document.getElementById('drawer-logout-btn');
+    
+    function handleLogout() {
+      if (typeof logoutUser === 'function') {
+        logoutUser();
+      } else {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
+        window.location.href = '/react-login/index.html';
+      }
+    }
+    
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    if (drawerLogoutBtn) {
+      drawerLogoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    // Display user email if available
+    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+    if (user && user.email) {
+      const userEmailElements = document.querySelectorAll('.user-email');
+      userEmailElements.forEach(element => {
+        element.textContent = user.email;
+      });
+    }
+  });
+</script>

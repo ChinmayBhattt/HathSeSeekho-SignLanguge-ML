@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css" ></link>
+    <title>ASL Features - HaathSeSeekho</title>
+    <link rel="icon" href="/assets/logo/signlangugeImage.png" />
+    <meta name="description" content="Access interactive features to learn and practice American Sign Language in a fun way."/>
+    <script src="/js/auth.js"></script>
+    
+    <script>
+        // Simple authentication check
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentPath = window.location.pathname;
+            const isLoginPage = currentPath.includes('/react-login/');
+            
+            // If not logged in and not on login page, redirect to login
+            if (!isLoggedIn && !isLoginPage) {
+                window.location.href = '/react-login/index.html';
+            }
+            
+            // Show content only if logged in or on login page
+            const contentElement = document.getElementById('content-container');
+            if (contentElement) {
+                contentElement.style.display = (isLoggedIn || isLoginPage) ? 'block' : 'none';
+            }
+        });
+    </script>
+</head>
+<body class="bg-[#ECF3F5]" >
+    <div id="content-container" style="display: none;">
+        
+<!-- navbar -->
+<nav class="border-gray-200 bg-white px-2 py-4 dark:border-gray-700 dark:bg-gray-900">
+  <div class="container mx-auto flex flex-wrap items-center justify-between">
+    <a href="/" class="flex items-center">
+      <img src="/assets/logo/signlangugeImage.png" class="mr-4 h-12 w-12 sm:h-16 sm:w-16 object-contain" alt="HaathSeSeekho" />
+      <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+        >HaathSeSeekho</span
+      >
+    </a>
+    <button
+      type="button"
+      data-drawer-target="drawer-navigation"
+      data-drawer-show="drawer-navigation"
+      aria-controls="drawer-navigation"
+      type="button"
+      class="ml-3 inline-flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-500 md:hidden"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="h-6 w-6"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+      <ul
+        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium md:dark:bg-gray-900 nav-links"
+      >
+        <li>
+          <a
+            href="/"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >App</a
+          >
+        </li>
+        <li>
+          <a
+            href="/app/phrases/index.html"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link"
+            >Dictionary</a
+          >
+        </li>
+        <li>
+          <a
+            href="/app/games/index.html"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white nav-link active"
+            >Features</a
+          >
+        </li>
+        <li>
+          <button
+            id="logout-btn"
+            class="block rounded py-2 pr-4 pl-3 text-xl text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-400"
+            >Logout</button
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  :root {
+    --primary-color: #6366f1;
+    --dark-color: #333;
+    --transition: all 0.3s ease;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    position: relative;
+    transition: var(--transition);
+  }
+  
+  .nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+    background: transparent !important;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition);
+  }
+  
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-link::after {
+      bottom: 0;
+    }
+  }
+</style>
+
+<!-- drawer component -->
+<div
+  id="drawer-navigation"
+  class="fixed z-40 h-screen w-80 overflow-y-auto bg-white p-4 dark:bg-gray-800"
+  tabindex="-1"
+  aria-labelledby="drawer-navigation-label"
+>
+  <div class="flex items-center mb-4">
+    <img src="/assets/logo/signlangugeImage.png" class="mr-2 h-10 w-10 object-contain" alt="HaathSeSeekho" />
+    <h5
+      id="drawer-navigation-label"
+      class="text-base font-semibold text-gray-500 dark:text-gray-400"
+    >
+      HaathSeSeekho
+    </h5>
+  </div>
+  <button
+    type="button"
+    data-drawer-dismiss="drawer-navigation"
+    aria-controls="drawer-navigation"
+    class="absolute top-2.5 right-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+  >
+    <svg
+      aria-hidden="true"
+      class="h-5 w-5"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+    <span class="sr-only">Close menu</span>
+  </button>
+  <div class="overflow-y-auto py-4">
+    <ul class="space-y-2">
+      <li>
+        <a
+          href="/"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Home</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/app/phrases/index.html"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Dictionary</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/app/games/index.html"
+          class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 active"
+        >
+          <span class="ml-3">Features</span>
+        </a>
+      </li>
+      <li>
+        <button
+          id="drawer-logout-btn"
+          class="flex w-full items-center rounded-lg p-2 text-base font-normal text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700"
+        >
+          <span class="ml-3">Logout</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Logout functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logout-btn');
+    const drawerLogoutBtn = document.getElementById('drawer-logout-btn');
+    
+    function handleLogout() {
+      if (typeof logoutUser === 'function') {
+        logoutUser();
+      } else {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
+        window.location.href = '/react-login/index.html';
+      }
+    }
+    
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    if (drawerLogoutBtn) {
+      drawerLogoutBtn.addEventListener('click', handleLogout);
+    }
+  });
+</script>
+
+<!-- Games Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Learn ASL Through <span>Interactive Features</span></h1>
+        <p>Improve your sign language skills with fun and engaging activities. Practice recognition, memory, and speed!</p>
+      </div>
+      <div class="hero-image">
+        <img src="/assets/img/abc-illustration.png" alt="Sign Language Games Illustration">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --primary-color: #6366f1;
+    --dark-color: #333;
+    --light-bg: #f9fafb;
+    --transition: all 0.3s ease;
+  }
+
+  .hero-section {
+    padding: 2rem 0;
+    background-color: var(--light-bg);
+    display: flex;
+    align-items: center;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+  }
+
+  .hero-text h1 span {
+    color: var(--primary-color);
+    display: inline-block;
+    border-bottom: 4px solid var(--primary-color);
+  }
+
+  .hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #666;
+  }
+
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 992px) {
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<!-- Games Section -->
+<section class="games-section py-10">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-10">Choose a Feature to Try</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Sign Language Quiz -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
+          <img src="/assets/img/ABC.png" alt="Sign Language Quiz" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Sign Language Quiz</h3>
+          <p class="text-gray-700 mb-4">Show a letter or word on screen. Perform the corresponding hand sign and get scored based on accuracy and response time.</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Simon Says -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <img src="/assets/img/hell-yeah.png" alt="Simon Says" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Simon Says (Gesture Memory)</h3>
+          <p class="text-gray-700 mb-4">App shows a sequence of signs (e.g., A → B → C). Repeat the exact sequence using gestures. Level increases with each success.</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Sign to Word Match -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center">
+          <img src="/assets/img/GHI.png" alt="Sign to Word Match" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Sign to Word Match</h3>
+          <p class="text-gray-700 mb-4">Perform a sign and select the correct matching word from multiple choices. Great for vocabulary building!</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Gesture Drawing -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center">
+          <img src="/assets/img/LMN.png" alt="Gesture Drawing" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Gesture Drawing / Tracing</h3>
+          <p class="text-gray-700 mb-4">Follow the outline of a hand gesture with your hand motion. The app tracks and scores your accuracy.</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Speed Sign Challenge -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center">
+          <img src="/assets/img/QRS.png" alt="Speed Sign Challenge" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Speed Sign Challenge</h3>
+          <p class="text-gray-700 mb-4">Show rapid-fire signs on screen. Quickly perform the correct gesture before the timer runs out. Great for reflexes!</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Multiplayer Gesture Battle -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-teal-500 to-emerald-500 flex items-center justify-center">
+          <img src="/assets/img/VWX.png" alt="Multiplayer Gesture Battle" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Multiplayer Gesture Battle</h3>
+          <p class="text-gray-700 mb-4">Compete with a friend to perform correct signs faster. The first correct gesture wins the round!</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+      
+      <!-- Sign Language Story Mode -->
+      <div class="game-card bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105">
+        <div class="h-48 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+          <img src="/assets/img/peace.png" alt="Sign Language Story Mode" class="h-32 w-auto">
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Sign Language Story Mode</h3>
+          <p class="text-gray-700 mb-4">Interactive story with blank spaces. Fill in missing words by doing the correct hand sign, progressing the story.</p>
+          <a href="#" class="play-button">Play Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .games-section {
+    background-color: #ECF3F5;
+  }
+  
+  .game-card {
+    transition: all 0.3s ease;
+  }
+  
+  .game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .play-button {
+    display: inline-block;
+    background-color: #6366f1;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .play-button:hover {
+    background-color: #5254cc;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+</style>
+
+<!-- Coming Soon Section -->
+<section class="coming-soon-section py-16 bg-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">More Features Coming Soon!</h2>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">We're constantly developing new and exciting ways to help you learn sign language. Check back often for updates!</p>
+    
+    <div class="mt-10">
+      <a href="/" class="bg-[#6366f1] text-white py-3 px-8 rounded-full text-lg font-medium hover:bg-[#5254cc] transition-all duration-300 inline-block">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <span>HathSe</span>Seekho
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/">App</a></li>
+                <li><a href="/app/phrases/index.html">Dictionary</a></li>
+                <li><a href="/app/games/index.html">Features</a></li>
+            </ul>
+        </div>
+        <div class="footer-newsletter">
+            <h3>Stay Updated</h3>
+            <p>Subscribe to our newsletter for the latest sign language resources</p>
+            <form>
+                <input type="email" placeholder="Your email address">
+                <button type="submit" class="btn primary-btn">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2023 HaathSeSeekho Explorer. All rights reserved.</p>
+    </div>
+</footer>
+
+<style>
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 60px 5% 20px 5%;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 3rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-logo span {
+    color: var(--primary-color);
+}
+
+.footer-links h3, .footer-newsletter h3 {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.footer-links h3::after, .footer-newsletter h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 50px;
+    height: 2px;
+    background: var(--primary-color);
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links a {
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    margin-left: 5px;
+}
+
+.footer-newsletter p {
+    margin-bottom: 1.5rem;
+}
+
+.footer-newsletter form {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-newsletter input {
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: none;
+    flex: 1;
+    font-family: inherit;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #5254cc;
+    transform: translateY(-3px);
+}
+</style>
+
+    </div>
+</body>
+<script src="/js/flowbite.js" defer></script>
+
+</html> 

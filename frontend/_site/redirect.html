@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaathSeSeekho - Redirecting...</title>
+    <link rel="icon" href="/assets/logo/signlangugeImage.png" />
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        if (!isLoggedIn) {
+            window.location.href = '/react-login/index.html';
+        } else {
+            window.location.href = '/index.html';
+        }
+    </script>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+        <div>
+            <h1>Redirecting...</h1>
+            <p>If you are not redirected automatically, please <a href="/react-login/index.html">click here</a>.</p>
+        </div>
+    </div>
+</body>
+</html> 

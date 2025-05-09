@@ -1,0 +1,608 @@
+:root {
+    --primary-color: #6366f1;
+    --dark-color: #333;
+    --light-bg: #f0f4ff;
+    --transition: all 0.3s ease;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/img/ABC.png');
+    background-size: 180px;
+    background-position: 10% 20%;
+    opacity: 0.3;
+    z-index: -1;
+    animation: subtle-zoom 30s infinite alternate;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/img/GHI.png');
+    background-size: 220px;
+    background-position: 90% 80%;
+    opacity: 0.4;
+    z-index: -1;
+    animation: subtle-rotate 40s infinite linear;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%);
+    top: -150px;
+    left: -150px;
+    animation: pulse-gradient 8s infinite alternate;
+}
+
+.login-container::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.2) 0%, rgba(129, 140, 248, 0) 70%);
+    bottom: -200px;
+    right: -200px;
+    animation: pulse-gradient 10s infinite alternate-reverse;
+}
+
+/* Animated hands in background */
+.hand-sign {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.5;
+    filter: contrast(1.1) brightness(1.1);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hand-sign:nth-child(1) {
+    width: 180px;
+    height: 180px;
+    top: 15%;
+    left: 10%;
+    background-image: url('/assets/img/QRS.png');
+    animation: float-hand 15s ease-in-out infinite, glow 3s infinite alternate;
+}
+
+.hand-sign:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    background-image: url('/assets/img/VWX.png');
+    animation: float-hand 12s ease-in-out infinite 0.5s, glow 4s infinite alternate 1s;
+}
+
+.hand-sign:nth-child(3) {
+    width: 130px;
+    height: 130px;
+    bottom: 20%;
+    left: 15%;
+    background-image: url('/assets/img/abc-illustration.png');
+    animation: float-hand 10s ease-in-out infinite 1s, glow 5s infinite alternate 2s;
+}
+
+.login-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.25);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    animation: form-appear 0.8s ease-out;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    backdrop-filter: blur(15px);
+    z-index: 10;
+}
+
+.login-form:hover {
+    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Colorful gradient border */
+.login-form::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #6366f1, #818cf8, #c4b5fd, #6366f1);
+    z-index: -1;
+    border-radius: 22px;
+    background-size: 400%;
+    animation: border-animate 8s linear infinite;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.login-form:hover::before {
+    opacity: 1;
+}
+
+.login-form::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    animation: pulse 8s infinite alternate;
+    z-index: -1;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    backdrop-filter: blur(5px);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+    background-color: white;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #6366f1, #818cf8);
+    color: white;
+    padding: 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #5254cc, #6366f1);
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+    animation: shine 1.5s infinite;
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-primary:disabled {
+    background: linear-gradient(45deg, #a5a6f6, #c4b5fd);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.login-logo {
+    display: block;
+    margin: 0 auto 1rem;
+    width: 890px;
+    height: 150px;
+    object-fit: contain;
+    animation: bounce 4s infinite alternate;
+    filter: drop-shadow(0 8px 15px rgba(99, 102, 241, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.login-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.login-form h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53, #FFD166);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: titlePulse 3s ease-in-out infinite;
+}
+
+.login-form h1::before,
+.login-form h1::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    bottom: -10px;
+    border-radius: 3px;
+}
+
+.login-form h1::before {
+    left: 50%;
+    right: 50%;
+    background: linear-gradient(90deg, #FF6B6B, #FFD166);
+    animation: expandWidth 1.5s ease-out forwards;
+}
+
+.login-form h1::after {
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.2), transparent);
+    animation: scanLine 3s ease-in-out infinite;
+}
+
+.logo-text {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    animation: fade-in 1s ease-out;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    letter-spacing: 1px;
+}
+
+.logo-text span {
+    color: var(--primary-color);
+    position: relative;
+    background: linear-gradient(45deg, #6366f1, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #818cf8);
+    transform-origin: left;
+    animation: expand 1s ease-out forwards 0.5s;
+    transform: scaleX(0);
+    border-radius: 2px;
+}
+
+.error-message {
+    color: #e53e3e;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    background-color: rgba(254, 242, 242, 0.9);
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    animation: shake 0.5s ease-in-out;
+    border-left: 4px solid #e53e3e;
+    box-shadow: 0 4px 10px rgba(229, 62, 62, 0.1);
+}
+
+.register-link {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.register-link a:hover {
+    background-color: rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+}
+
+.register-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #818cf8);
+    transition: var(--transition);
+}
+
+.register-link a:hover::after {
+    width: 100%;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.small-sign-in {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.registration-success {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #10b981, #34d399);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    z-index: 50;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    font-weight: 600;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+@keyframes form-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float-hand {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(20px, -20px) rotate(8deg);
+    }
+    50% {
+        transform: translate(0, -35px) rotate(0deg);
+    }
+    75% {
+        transform: translate(-20px, -20px) rotate(-8deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes expand {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-8px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(8px);
+    }
+}
+
+@keyframes border-animate {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 300% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes glow {
+    0% {
+        filter: contrast(1.1) brightness(1.1) drop-shadow(0 0 5px rgba(99, 102, 241, 0.1));
+    }
+    100% {
+        filter: contrast(1.2) brightness(1.2) drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
+    }
+}
+
+@keyframes subtle-zoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes subtle-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse-gradient {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1.3);
+    }
+}
+
+@keyframes titlePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 0.9;
+    }
+}
+
+@keyframes expandWidth {
+    0% {
+        left: 50%;
+        right: 50%;
+    }
+    100% {
+        left: 20%;
+        right: 20%;
+    }
+}
+
+@keyframes scanLine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes colorflow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} 
